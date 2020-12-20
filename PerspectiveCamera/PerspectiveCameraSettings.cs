@@ -8,7 +8,7 @@ namespace PerspectiveCamera
         public bool Smoothing = true;
         public float Smoothness = 7f;
         public float MoveSpeed = 15f;
-        public float RotateSpeed = 360f;
+        public float RotateSpeed = 180f;
         public float ZoomSpeed = 5f;
 
         public void Reset()

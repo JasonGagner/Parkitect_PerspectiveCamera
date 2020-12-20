@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PerspectiveCamera
 {
-    public class Main : IMod, IModSettings
+    public class Main : AbstractMod, IModSettings
     {
         private CameraHandler _cameraHandler;
 
@@ -13,7 +13,20 @@ namespace PerspectiveCamera
             SetupKeyBinding();
         }
 
-        public void onEnabled()
+        public override string getName() => _name;
+
+        public override string getDescription() => _description;
+
+        public override string getVersionNumber() => "1.0.0";
+
+        public override string getIdentifier() => _identifier;
+
+        public override bool isMultiplayerModeCompatible() => true;
+
+        public override bool isRequiredByAllPlayersInMultiplayerMode() => false;
+
+
+        public override void onEnabled()
         {
             PerspectiveCameraSettings.Instance.Load();
             EventManager.Instance.OnStartPlayingPark += InstanceOnOnStartPlayingPark;
@@ -21,13 +34,13 @@ namespace PerspectiveCamera
 
         private void InstanceOnOnStartPlayingPark()
         {
-            GameObject cameraHandlerGo = new GameObject(Identifier + " | Camera Handler");
+            GameObject cameraHandlerGo = new GameObject(_identifier + " | Camera Handler");
             _cameraHandler = cameraHandlerGo.AddComponent<CameraHandler>();
             
 
             _cameraHandler.OrigCamera = Camera.main.gameObject;
             _cameraHandler.PerspectiveCamera = Object.Instantiate(_cameraHandler.OrigCamera);
-            _cameraHandler.PerspectiveCamera.name = Identifier;
+            _cameraHandler.PerspectiveCamera.name = _identifier;
             
 
             _cameraHandler.OrigCamera.SetActive(false);
@@ -50,7 +63,7 @@ namespace PerspectiveCamera
 
         
 
-        public void onDisabled()
+        public override void onDisabled()
         {
             _cameraHandler.SetCameraActive(_cameraHandler.OrigCamera);
             Object.DestroyImmediate(_cameraHandler.PerspectiveCamera);
@@ -59,8 +72,8 @@ namespace PerspectiveCamera
 
         private void SetupKeyBinding()
         {
-            KeyGroup group = new KeyGroup(Identifier);
-            group.keyGroupName = Name;
+            KeyGroup group = new KeyGroup(_identifier);
+            group.keyGroupName = _name;
 
             InputManager.Instance.registerKeyGroup(group);
 
@@ -76,8 +89,8 @@ namespace PerspectiveCamera
 
         private void RegisterKey(string identifier, KeyCode keyCode, string name, string description = "")
         {
-            var key = new KeyMapping(Identifier + "/" + identifier, keyCode, KeyCode.None);
-            key.keyGroupIdentifier = Identifier;
+            var key = new KeyMapping(_identifier + "/" + identifier, keyCode, KeyCode.None);
+            key.keyGroupIdentifier = _identifier;
             key.keyName = name;
             key.keyDescription = description;
             InputManager.Instance.registerKeyMapping(key);
@@ -97,12 +110,8 @@ namespace PerspectiveCamera
             PerspectiveCameraSettings.Instance.Save();
         }
 
-        public string Name => _name;
-        public string Description => _description;
-        public string Identifier => _identifier;
 
         private static string _name, _description, _identifier;
-
 
         static Main()
         {

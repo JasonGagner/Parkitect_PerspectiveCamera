@@ -33,9 +33,9 @@
 
   <PropertyGroup>
     <!-- Different on each system -->
-    <ParkitectPath>D:\Games\steamapps\common\Parkitect</ParkitectPath>
-    <ParkitectUserPath>C:\Users\Henrico\Documents\Parkitect</ParkitectUserPath>
-    <SteamExe>C:\Games\Steam\Steam.exe</SteamExe>
+    <ParkitectPath>J:\SteamLibrary\steamapps\common\Parkitect</ParkitectPath>
+    <ParkitectUserPath>C:\Users\Jason\Documents\Parkitect</ParkitectUserPath>
+    <SteamExe>F:\Program Files (x86)\Steam\Steam.exe</SteamExe>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -67,9 +67,6 @@
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.AIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
@@ -122,14 +119,11 @@
     <Reference Include="UnityEngine.InputModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.InputModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ParticlesLegacyModule">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.ParticlesLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
@@ -149,20 +143,11 @@
     <Reference Include="UnityEngine.SharedInternalsModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.SpatialTracking.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StyleSheetsModule">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.StyleSheetsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
@@ -175,9 +160,6 @@
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Timeline">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.UI.dll</HintPath>
@@ -218,9 +200,6 @@
     <Reference Include="UnityEngine.VRModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.VRModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.WebModule">
-      <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.WebModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.WindModule">
       <HintPath>$(ParkitectPath)/Parkitect_Data\Managed\UnityEngine.WindModule.dll</HintPath>
     </Reference>
@@ -250,10 +229,10 @@
     <Delete Files="$(ModDir)/$(TargetFileName)" />
     <MakeDir Directories="$(ModDir)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(ModDir)/$(TargetFileName)" />
-    <Exec Condition="$(ConfigurationName) == 'Release'"  Command="7z a -r &quot;$(ModDir).zip&quot; &quot;$(ModDir)&quot;" />
+    <Exec Condition="$(ConfigurationName) == 'Release'" Command="7z a -r &quot;$(ModDir).zip&quot; &quot;$(ModDir)&quot;" />
   </Target>
   <Target Name="StartParkitect" AfterTargets="PostBuild" Condition="'$(StartParkitect)' == 'true'">
-    <Exec Condition="'$(UseSteam)' != 'true'" Command='"$(ParkitectPath)/Parkitect"' />
-    <Exec Condition="'$(UseSteam)' == 'true'" Command='"$(SteamExe)" -applaunch $(ParkitectSteamId)' />
+    <Exec Condition="'$(UseSteam)' != 'true'" Command="&quot;$(ParkitectPath)/Parkitect&quot;" />
+    <Exec Condition="'$(UseSteam)' == 'true'" Command="&quot;$(SteamExe)&quot; -applaunch $(ParkitectSteamId)" />
   </Target>
 </Project>
